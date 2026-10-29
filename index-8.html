@@ -1,0 +1,422 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="theme-color" content="#081521">
+<title>تصور ميكانيكي ثلاثي الأبعاد | ماكينة تركيب الروندلة</title>
+<style>
+:root{--bg:#081521;--panel:#0d1d2c;--panel2:#122638;--line:#254155;--text:#ecf4f8;--muted:#8ba3b5;--orange:#f7a35c;--cyan:#4ed6d0;--green:#69d6a5;--red:#ff7777;--steel:#b8c8d2;--shadow:0 16px 45px #0003}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--bg);color:var(--text);font-family:Tahoma,"Segoe UI",Arial,sans-serif}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid var(--orange);outline-offset:2px}
+#app{height:100dvh;width:100vw;display:grid;grid-template-rows:54px minmax(0,1fr);background:radial-gradient(ellipse at 48% 35%,#12283b 0,#091723 68%)}
+.topbar{display:flex;align-items:center;gap:14px;justify-content:space-between;padding:0 18px;border-bottom:1px solid #1c3446;background:#091724;min-width:0;z-index:5}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}.brand-mark{width:33px;height:33px;border:1px solid #446278;background:linear-gradient(145deg,#28465d,#102638);border-radius:9px;display:grid;place-items:center;flex-shrink:0;box-shadow:inset 0 1px #ffffff16}.brand-mark svg{width:22px;height:22px}.brand-txt{min-width:0}.brand-txt strong{display:block;font-size:13px;letter-spacing:.1px;white-space:nowrap}.brand-txt span{display:block;color:#7f9aac;font-size:9px;margin-top:3px;white-space:nowrap}.top-center{display:flex;align-items:center;gap:9px;color:var(--muted);font-size:10px;white-space:nowrap}.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px #69d6a51c;display:inline-block}.top-actions{display:flex;align-items:center;gap:6px}.icon-btn,.top-btn{border:1px solid #2a4659;color:#b9ccd7;background:#102334;border-radius:8px;min-height:31px;min-width:34px;display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:0 9px;font-size:10px}.icon-btn svg,.top-btn svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}.icon-btn:hover,.top-btn:hover{border-color:#6b879a;color:white}.workspace{min-height:0;min-width:0;display:grid;grid-template-columns:minmax(0,1fr) 302px;direction:ltr;gap:0}.viewport{min-width:0;min-height:0;position:relative;overflow:hidden;border-left:1px solid #20394b;background:radial-gradient(ellipse at 48% 38%,#18334a 0,#0c1b29 63%,#081521 100%)}#scene{display:block;width:100%;height:100%;touch-action:none;outline:none}.viewport:after{content:"";position:absolute;pointer-events:none;inset:0;background:linear-gradient(180deg,#07152154 0,transparent 20%,transparent 76%,#07152180 100%)}
+.scene-head{position:absolute;top:13px;left:14px;right:14px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;z-index:2;pointer-events:none}.scene-title{direction:rtl;max-width:55%}.scene-title .eyebrow{color:var(--orange);font-size:9px;letter-spacing:1px;font-weight:bold}.scene-title strong{display:block;font-size:15px;margin-top:5px;text-shadow:0 2px 12px #0008}.scene-title p{margin:5px 0 0;color:#9eb2bf;font-size:10px;line-height:1.6}.scene-badge{font-size:9px;color:#cee5ee;background:#10283aaf;border:1px solid #3b5b6f;border-radius:7px;padding:7px 9px;white-space:nowrap;direction:ltr}
+.camera-tools{position:absolute;left:13px;top:96px;z-index:3;display:flex;flex-direction:column;gap:6px}.camera-tools button{width:33px;height:33px;border:1px solid #37556a;background:#0a1a28dc;color:#c2d6e1;border-radius:9px;display:grid;place-items:center;backdrop-filter:blur(8px)}.camera-tools button svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.camera-tools button:active{color:var(--orange);border-color:var(--orange)}
+.legend-strip{position:absolute;bottom:13px;left:13px;display:flex;gap:7px;z-index:3;flex-wrap:wrap;max-width:62%;pointer-events:none}.legend-chip{display:flex;align-items:center;gap:5px;color:#b3c4ce;font-size:9px;border:1px solid #355064;background:#091a28d9;border-radius:6px;padding:5px 7px;backdrop-filter:blur(6px)}.legend-chip i{display:inline-block;width:6px;height:6px;border-radius:2px}.drag-hint{position:absolute;bottom:15px;right:14px;z-index:3;color:#819bab;font-size:9px;display:flex;align-items:center;gap:6px;pointer-events:none}.drag-hint svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:1.5}
+.hotspot{position:absolute;z-index:2;border:1px solid #ffd4a0;background:#df8945;color:#142332;min-width:21px;height:21px;border-radius:50%;display:grid;place-items:center;font-size:10px;font-weight:900;box-shadow:0 0 0 4px #f7a35c20;transform:translate(-50%,-50%);cursor:pointer;transition:opacity .18s;pointer-events:auto}.hotspot:hover{background:#ffe0b8;transform:translate(-50%,-50%) scale(1.12)}
+.inspector{direction:rtl;min-height:0;display:flex;flex-direction:column;background:linear-gradient(180deg,#102334,#0b1b29);border-left:1px solid #263f52;position:relative;z-index:4}.inspector-top{padding:13px 14px 11px;border-bottom:1px solid #1f3a4e}.inspector-kicker{color:#91aabd;font-size:9px;letter-spacing:.6px}.inspector-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-top:6px}.inspector-heading h1{font-size:14px;line-height:1.5;margin:0;font-weight:800}.step-counter{font:700 10px Consolas,monospace;color:var(--orange);white-space:nowrap;border:1px solid #704c31;background:#3a2b20;border-radius:6px;padding:5px 7px;direction:ltr}.inspector-top p{font-size:10px;color:#9bb0bf;line-height:1.8;margin:7px 0 0}
+.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:8px 10px;border-bottom:1px solid #1e384b}.tab{border:1px solid transparent;background:transparent;color:#7f9aac;padding:8px 2px;border-radius:7px;font-size:10px}.tab.active{color:#f4f8fb;background:#20394b;border-color:#3d5c70;font-weight:bold}
+.panel-content{min-height:0;flex:1;overflow:auto;padding:10px 11px 14px;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#345064 transparent}.tab-pane{display:none}.tab-pane.active{display:block}.section-caption{display:flex;justify-content:space-between;align-items:center;color:#86a0b1;font-size:9px;margin:1px 1px 7px}.mini-pill{color:#8edfd5;border:1px solid #285b5a;background:#123b3b;border-radius:5px;padding:3px 6px;font-size:9px}
+.step-list{display:flex;flex-direction:column;gap:5px}.step-item{display:grid;grid-template-columns:27px minmax(0,1fr) 12px;align-items:center;gap:8px;width:100%;text-align:right;background:#102536;border:1px solid #203c50;border-radius:9px;padding:7px 8px;color:#adc0cc;min-height:42px}.step-item.active{background:linear-gradient(90deg,#2a2b28,#1a3040);border-color:#b57e4a;box-shadow:inset -2px 0 #f7a35c}.step-num{width:26px;height:26px;border:1px solid #39566b;background:#172e41;border-radius:7px;display:grid;place-items:center;font:700 10px Consolas,monospace;color:#c9d6de}.step-item.active .step-num{background:var(--orange);border-color:var(--orange);color:#142331}.step-label strong{display:block;font-size:10px;color:#e2edf2;margin-bottom:3px}.step-label small{display:block;color:#8099aa;font-size:9px;line-height:1.45}.step-state{width:6px;height:6px;border-radius:50%;background:#425a6b}.step-item.active .step-state{background:var(--orange);box-shadow:0 0 0 3px #f7a35c22}
+.control-box{background:#0a1a27;border:1px solid #264255;border-radius:11px;padding:9px;margin:0 0 10px}.play-row{display:grid;grid-template-columns:1.4fr 1fr 35px;gap:5px}.control-btn{border:1px solid #345164;background:#142c3e;color:#d2e0e8;border-radius:7px;min-height:32px;padding:6px 8px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:10px;font-weight:700;white-space:nowrap}.control-btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}.control-btn.primary{background:var(--orange);border-color:var(--orange);color:#172432}.control-btn.primary.running{background:#e57b6d;border-color:#e57b6d}.control-btn:active{transform:translateY(1px)}.speed-row{display:flex;align-items:center;gap:8px;margin-top:9px;color:#7994a6;font-size:9px}.speed-row input{width:100%;accent-color:var(--orange);min-width:0}.state-line{margin-top:8px;display:flex;align-items:center;justify-content:space-between;color:#84a0b0;font-size:9px}.state-line strong{color:#8ce1bf;font-weight:normal}.progress-track{height:3px;background:#1f394d;border-radius:5px;margin-top:7px;overflow:hidden}.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--orange),var(--cyan));border-radius:5px;transition:width .08s linear}
+.mechanism-card{border:1px solid #254257;background:#102536;border-radius:10px;padding:10px;margin-bottom:8px}.mechanism-card h3{font-size:11px;color:#edf5f8;margin:0 0 6px;display:flex;align-items:center;gap:7px}.mechanism-card h3 span{display:grid;place-items:center;width:20px;height:20px;border-radius:6px;background:#233f52;color:var(--orange);font:700 9px Consolas,monospace}.mechanism-card p{font-size:10px;line-height:1.8;margin:0;color:#91a9b8}.motion-note{padding:9px 10px;border-right:2px solid var(--cyan);background:#0e302f88;color:#99c5c4;border-radius:7px;font-size:9px;line-height:1.8;margin-top:8px}
+.component-list{display:flex;flex-direction:column;gap:6px}.component-item{width:100%;text-align:right;border:1px solid #213d50;border-radius:9px;background:#102536;padding:9px;display:flex;align-items:center;gap:9px;color:#d6e4eb}.component-item.active{border-color:#c28a54;background:#273343}.component-icon{width:31px;height:31px;display:grid;place-items:center;border-radius:8px;background:#203c50;color:#eab47a;flex-shrink:0}.component-icon svg{width:17px;height:17px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}.component-item strong{display:block;font-size:10px;margin-bottom:3px}.component-item small{display:block;color:#86a0b1;font-size:9px;line-height:1.5}.component-detail{margin-top:8px;border:1px solid #624d38;background:#2a291f;border-radius:9px;padding:10px}.component-detail h3{font-size:11px;margin:0 0 6px;color:#ffe0b7}.component-detail p{font-size:10px;line-height:1.9;margin:0;color:#d4c5af}.spec-list{display:flex;flex-direction:column;gap:6px}.spec-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:start;border-bottom:1px solid #1e3749;padding:8px 2px}.spec-row:last-child{border:0}.spec-row strong{display:block;font-size:10px;color:#dfeaf0;margin-bottom:4px}.spec-row small{display:block;color:#7893a4;font-size:9px;line-height:1.65}.spec-val{direction:ltr;font:700 10px Consolas,monospace;color:#ffbd7d;white-space:nowrap;text-align:left}.searchbox{margin-bottom:8px;width:100%;border:1px solid #28465b;background:#0a1a27;border-radius:8px;color:#e7f0f5;padding:9px 10px;font-size:10px;outline:none}.searchbox::placeholder{color:#637e91}.panel-foot{padding:8px 12px;border-top:1px solid #1e3749;display:flex;align-items:center;justify-content:space-between;gap:8px;color:#698598;font-size:8px}.panel-foot span:last-child{direction:ltr;font-family:Consolas,monospace}
+.orientation-veil{display:none;position:fixed;inset:0;z-index:1000;background:#07131f;color:#f3f8fa;place-items:center;text-align:center;padding:24px}.orientation-card{max-width:350px}.rotate-icon{width:92px;height:72px;margin:0 auto 20px;position:relative;display:grid;place-items:center}.phone{width:35px;height:61px;border:3px solid #e5f0f5;border-radius:7px;position:absolute;transform:rotate(90deg);animation:turnphone 2.2s ease-in-out infinite}.phone:before{content:"";position:absolute;left:50%;transform:translateX(-50%);bottom:3px;width:3px;height:3px;border-radius:50%;background:#f7a35c}.rotate-arrow{position:absolute;inset:0;width:92px;height:72px;stroke:#f7a35c;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}.orientation-card h2{font-size:21px;margin:0 0 10px}.orientation-card p{font-size:13px;color:#9fb2bf;line-height:1.9;margin:0 0 19px}.orientation-card button{border:0;border-radius:10px;padding:12px 18px;background:var(--orange);color:#152433;font-weight:bold;font-size:12px}.orientation-card .small{display:block;margin-top:12px;color:#70899b;font-size:10px}.orientation-card .continue{margin-top:12px;background:transparent;border:1px solid #345166;color:#a9bfcd;display:block;width:100%}@keyframes turnphone{0%,100%{transform:rotate(0deg)}45%,65%{transform:rotate(90deg)}}
+@media(orientation:portrait){.orientation-veil{display:grid}}
+@media(max-width:960px) and (orientation:landscape){.topbar{height:47px;padding:0 10px;gap:8px}.topbar .brand-mark{width:29px;height:29px}.brand-txt strong{font-size:11px}.brand-txt span{font-size:8px}.top-center{display:none}.workspace{grid-template-columns:minmax(0,1fr) 254px}.inspector-top{padding:9px 10px 7px}.inspector-heading h1{font-size:12px}.inspector-top p{margin-top:4px;font-size:9px;line-height:1.65}.tabs{padding:5px 7px}.tab{padding:7px 0;font-size:9px}.panel-content{padding:7px 8px 10px}.control-box{padding:7px;margin-bottom:7px}.control-btn{min-height:29px;font-size:9px;padding:5px}.play-row{grid-template-columns:1.35fr 1fr 30px}.speed-row{margin-top:6px}.step-list{gap:4px}.step-item{min-height:37px;padding:5px 6px;grid-template-columns:25px minmax(0,1fr) 8px;gap:6px}.step-num{width:24px;height:24px}.step-label strong{font-size:9px}.step-label small{font-size:8px}.scene-title{top:8px}.scene-title strong{font-size:12px}.scene-title p{font-size:9px}.camera-tools{top:78px;left:8px}.camera-tools button{width:29px;height:29px}.legend-strip{max-width:70%;left:8px;bottom:8px}.legend-chip{font-size:8px;padding:4px 5px}.drag-hint{display:none}.scene-badge{font-size:8px;padding:5px 6px}}
+@media(max-height:390px) and (orientation:landscape){#app{grid-template-rows:43px minmax(0,1fr)}.workspace{grid-template-columns:minmax(0,1fr) 235px}.inspector-top{padding:6px 9px 5px}.inspector-top p{display:none}.tabs{padding:4px 6px}.panel-content{padding:5px 7px}.control-box{padding:5px;margin-bottom:5px}.state-line{margin-top:4px}.step-item{min-height:32px;padding:4px 5px}.step-label small{display:none}.component-item{padding:6px}.scene-title p{display:none}.legend-strip{bottom:5px}.camera-tools{top:59px}}
+@media(min-width:1500px){.workspace{grid-template-columns:minmax(0,1fr) 340px}.inspector-top{padding:17px 18px 14px}.panel-content{padding:13px 14px}.step-item{min-height:48px}.step-label strong{font-size:11px}.step-label small{font-size:10px}}
+</style>
+</head>
+<body>
+<div id="app">
+<header class="topbar">
+  <div class="brand"><div class="brand-mark"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="#f7a35c" stroke-width="1.5"><path d="M3 7.5 12 3l9 4.5-9 4.5z"/><path d="M3 7.5V17l9 4 9-4V7.5M12 12v9"/><path d="M7 5.5 16 10" stroke="#d9eaf2"/></g></svg></div><div class="brand-txt"><strong>LINER INSERTION · M-01</strong><span>تصور ميكانيكي ثلاثي الأبعاد تفاعلي</span></div></div>
+  <div class="top-center"><span class="live-dot"></span><span>نموذج حركة مترابط</span><span style="color:#49677b">/</span><span>عرض ميكانيكي فقط</span></div>
+  <div class="top-actions"><button class="top-btn" id="homeCamera" title="إرجاع الكاميرا"><svg viewBox="0 0 24 24"><path d="M3 11a9 9 0 1 0 3-6.7L3 7"/><path d="M3 3v4h4"/></svg><span>إعادة المنظور</span></button><button class="icon-btn" id="fullscreenBtn" title="ملء الشاشة"><svg viewBox="0 0 24 24"><path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/></svg></button></div>
+</header>
+<div class="workspace">
+  <section class="viewport" aria-label="المشهد ثلاثي الأبعاد">
+    <canvas id="scene" tabindex="0" aria-label="مشهد ثلاثي الأبعاد للماكينة؛ اسحب لتدوير المشهد واستخدم التقريب"></canvas>
+    <div class="scene-head"><div class="scene-title"><div class="eyebrow">ASSEMBLY VIEW / 3D</div><strong>ماكينة تركيب الروندلة داخل الغطاء</strong><p id="sceneSubtitle">منظور عام للتغذية، تطبيق الغراء، التقاط الروندلة، ثم كبسها داخل الغطاء.</p></div><div class="scene-badge" id="renderBadge">WEBGL · ORBIT + ZOOM</div></div>
+    <div class="camera-tools"><button data-view="home" title="منظور عام"><svg viewBox="0 0 24 24"><path d="m3 10 9-7 9 7v10H3z"/><path d="M9 20v-6h6v6"/></svg></button><button data-view="front" title="من الأمام"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M8 5v14M16 5v14"/></svg></button><button data-view="top" title="من أعلى"><svg viewBox="0 0 24 24"><path d="m3 8 9-5 9 5-9 5zM3 8v8l9 5 9-5V8"/></svg></button><button data-view="zoomIn" title="تقريب"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M10.5 7v7M7 10.5h7"/></svg></button><button data-view="zoomOut" title="إبعاد"><svg viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21M7 10.5h7"/></svg></button></div>
+    <button class="hotspot" data-part="magazine" style="left:25%;top:33%" aria-label="خزنة الروندلات">1</button><button class="hotspot" data-part="head" style="left:43%;top:31%" aria-label="رأس الشفط والكبس">2</button><button class="hotspot" data-part="glue" style="left:62%;top:34%" aria-label="وحدة الغراء">3</button><button class="hotspot" data-part="feed" style="left:78%;top:56%" aria-label="تغذية الأغطية">4</button><button class="hotspot" data-part="slider" style="left:31%;top:50%" aria-label="اللسان السحاب">5</button>
+    <div class="legend-strip"><span class="legend-chip"><i style="background:#f7a35c"></i> حركة ميكانيكية</span><span class="legend-chip"><i style="background:#49b6ec"></i> هواء مضغوط</span><span class="legend-chip"><i style="background:#4ed6d0"></i> فاكيوم</span><span class="legend-chip"><i style="background:#dce6eb"></i> روندلة معدنية</span></div>
+    <div class="drag-hint"><svg viewBox="0 0 24 24"><path d="M8 12V5a2 2 0 0 1 4 0v6-2a2 2 0 0 1 4 0v3-1a2 2 0 0 1 4 0v5a5 5 0 0 1-5 5h-3a5 5 0 0 1-4-2l-3-4a2 2 0 0 1 3-3l2 2"/></svg> اسحب لتدوير المجسم · قرّب بإصبعين</div>
+  </section>
+  <aside class="inspector">
+    <div class="inspector-top"><div class="inspector-kicker">MECHANICAL SEQUENCE / M-01</div><div class="inspector-heading"><h1 id="panelTitle">دفع صف الأغطية بالبستم C1</h1><span class="step-counter" id="stepCounter">01 / 06</span></div><p id="panelSummary">يدفع البستم الغطاء الأخير داخل مجرى U، وينتقل الضغط من غطاء إلى الذي أمامه. تتحرك الأغطية المتلامسة كلها معًا بمشوار واحد؛ لا يوجد سير أو مشط فهرسة.</p></div>
+    <div class="tabs" role="tablist"><button class="tab active" data-tab="motion">تتابع الحركة</button><button class="tab" data-tab="parts">المكونات</button><button class="tab" data-tab="specs">المقاسات</button></div>
+    <div class="panel-content">
+      <section class="tab-pane active" id="tab-motion">
+        <div class="control-box"><div class="play-row"><button class="control-btn primary" id="runBtn"><svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></svg> تشغيل الدورة</button><button class="control-btn" id="oneStepBtn"><svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></svg> نفّذ الحركة</button><button class="control-btn" id="nextBtn" title="الخطوة التالية"><svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/><path d="M21 5v14"/></svg></button></div><div class="speed-row"><span>السرعة</span><input id="speedRange" type="range" min="0.5" max="1.8" value="1" step="0.1" aria-label="سرعة الحركة"><span id="speedValue">1.0×</span></div><div class="state-line"><span id="runState">الحالة: متوقف</span><strong id="phaseState">جاهز</strong></div><div class="progress-track"><div class="progress-fill" id="progressFill"></div></div><div style="display:flex;justify-content:flex-end;margin-top:7px"><button class="control-btn" id="resetBtn" style="min-height:26px;padding:4px 8px;font-size:9px"><svg viewBox="0 0 24 24"><path d="M3 11a9 9 0 1 0 3-6.7L3 7"/><path d="M3 3v4h4"/></svg> إعادة الدورة</button></div></div>
+        <div class="section-caption"><span>مراحل التشغيل الميكانيكي</span><span class="mini-pill">6 مراحل</span></div>
+        <div class="step-list" id="stepList"></div>
+        <div class="mechanism-card" style="margin-top:10px"><h3><span id="activeStageNo">01</span><b id="activeStageTitle">دفع صف الأغطية بالبستم C1</b></h3><p id="activeStageDescription">يمتد بستم C1 ويلامس الغطاء الموجود عند نهاية الصف. تنتقل قوة الدفع من غطاء إلى الغطاء الملاصق له، فتتحرك مجموعة الأغطية كلها في مجرى الألومنيوم بنفس الإزاحة. يفتح مشوار الدفع مكانًا عند مدخل التغذية، ثم يرجع البستم ويهبط غطاء جديد من الماسورة إلى المكان الفارغ.</p></div>
+        <div class="motion-note">المحاكاة تشرح تتابع الميكانيكا وحركة الأجزاء. تحديد دوائر الكهرباء، إشارات الحساسات، وتوقيتات الكنترول يترك للمهندس المختص.</div>
+      </section>
+      <section class="tab-pane" id="tab-parts">
+        <input type="search" id="componentSearch" class="searchbox" placeholder="ابحث عن مجموعة أو قطعة…" aria-label="ابحث عن مجموعة أو قطعة">
+        <div class="component-list" id="componentList"></div>
+        <div class="component-detail" id="componentDetail"><h3>تفاصيل المجموعة</h3><p>اختر جزءًا من القائمة لعرض وظيفته والمقاسات المسجلة له.</p></div>
+      </section>
+      <section class="tab-pane" id="tab-specs">
+        <div class="section-caption"><span>أبعاد وموديلات موجودة في ملف المشروع</span><span class="mini-pill">مراجعة مهندس</span></div>
+        <div class="spec-list" id="specList"></div>
+        <div class="motion-note">الأبعاد والموديلات التالية محفوظة من التصور الأصلي، وليست قياسات مستخرجة من نموذج CAD مُعتمد.</div>
+      </section>
+    </div>
+    <footer class="panel-foot"><span>تصور مرئي للفكرة الميكانيكية · ليس رسمة تصنيع معتمدة</span><span>LOCAL · OFFLINE</span></footer>
+  </aside>
+</div>
+</div>
+<div class="orientation-veil" id="orientationVeil"><div class="orientation-card"><div class="rotate-icon"><div class="phone"></div><svg class="rotate-arrow" viewBox="0 0 92 72"><path d="M20 22a29 29 0 0 1 48-4l5 5M73 12v11H62"/><path d="M72 51a29 29 0 0 1-48 4l-5-5M20 61V50h11"/></svg></div><h2>اقلب التليفون بالعرض</h2><p>الموديل الميكانيكي معمول للوضع الأفقي حتى تظهر الماكينة وحركة الأجزاء بوضوح.</p><button id="tryLandscape">محاولة تدوير الشاشة</button><span class="small" id="orientationHint">لو الشاشة لم تدُر تلقائيًا، اقلب الهاتف يدويًا.</span></div></div>
+<script>
+(()=>{'use strict';
+const canvas=document.getElementById('scene');
+const gl=canvas.getContext('webgl',{antialias:true,alpha:false,powerPreference:'high-performance'});
+if(!gl){document.getElementById('renderBadge').textContent='WEBGL غير مدعوم';document.getElementById('sceneSubtitle').textContent='المتصفح الحالي لا يدعم عرض المجسم ثلاثي الأبعاد. افتح الملف في Chrome أو متصفح حديث.';return;}
+const vertexSrc=`attribute vec3 aPosition;attribute vec3 aNormal;uniform mat4 uModel;uniform mat4 uViewProj;varying vec3 vNormal;varying vec3 vWorld;void main(){vec4 p=uModel*vec4(aPosition,1.0);vWorld=p.xyz;vNormal=normalize(mat3(uModel)*aNormal);gl_Position=uViewProj*p;}`;
+const fragmentSrc=`precision mediump float;uniform vec3 uColor;uniform vec3 uEye;uniform float uAlpha;uniform float uMetal;varying vec3 vNormal;varying vec3 vWorld;void main(){vec3 n=normalize(vNormal);vec3 l1=normalize(vec3(-0.45,0.85,0.58));vec3 l2=normalize(vec3(0.68,0.45,-0.48));vec3 v=normalize(uEye-vWorld);float d1=max(dot(n,l1),0.0);float d2=max(dot(n,l2),0.0);vec3 h1=normalize(l1+v);vec3 h2=normalize(l2+v);float s=pow(max(dot(n,h1),0.0),36.0)*0.45+pow(max(dot(n,h2),0.0),22.0)*0.18;float rim=pow(1.0-max(dot(n,v),0.0),2.0)*0.08;vec3 c=uColor*(0.24+0.59*d1+0.26*d2)+vec3(s*(0.35+uMetal*0.9))+uColor*rim;gl_FragColor=vec4(c,uAlpha);}`;
+function shader(type,src){const s=gl.createShader(type);gl.shaderSource(s,src);gl.compileShader(s);if(!gl.getShaderParameter(s,gl.COMPILE_STATUS))throw new Error(gl.getShaderInfoLog(s));return s;}
+function program(v,f){const p=gl.createProgram();gl.attachShader(p,shader(gl.VERTEX_SHADER,v));gl.attachShader(p,shader(gl.FRAGMENT_SHADER,f));gl.linkProgram(p);if(!gl.getProgramParameter(p,gl.LINK_STATUS))throw new Error(gl.getProgramInfoLog(p));return p;}
+let prog;try{prog=program(vertexSrc,fragmentSrc);}catch(e){document.getElementById('renderBadge').textContent='تعذر إنشاء المشهد';return;}
+gl.useProgram(prog);const loc={pos:gl.getAttribLocation(prog,'aPosition'),nor:gl.getAttribLocation(prog,'aNormal'),model:gl.getUniformLocation(prog,'uModel'),vp:gl.getUniformLocation(prog,'uViewProj'),color:gl.getUniformLocation(prog,'uColor'),eye:gl.getUniformLocation(prog,'uEye'),alpha:gl.getUniformLocation(prog,'uAlpha'),metal:gl.getUniformLocation(prog,'uMetal')};
+const cache=new Map(), objects=[];let buildingPart='frame';
+const colorHex=h=>{const x=parseInt(h.replace('#',''),16);return [((x>>16)&255)/255,((x>>8)&255)/255,(x&255)/255];};
+function geo(key,pos,norm){if(cache.has(key))return cache.get(key);const b={count:pos.length/3,p:gl.createBuffer(),n:gl.createBuffer()};gl.bindBuffer(gl.ARRAY_BUFFER,b.p);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(pos),gl.STATIC_DRAW);gl.bindBuffer(gl.ARRAY_BUFFER,b.n);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array(norm),gl.STATIC_DRAW);cache.set(key,b);return b;}
+function emitTri(P,N,a,b,c,n){P.push(...a,...b,...c);N.push(...n,...n,...n);}
+function boxGeo(sx,sy,sz){const key='box:'+sx+','+sy+','+sz;if(cache.has(key))return cache.get(key);const x=sx/2,y=sy/2,z=sz/2,P=[],N=[];const faces=[{v:[[-x,-y,z],[x,-y,z],[x,y,z],[-x,y,z]],n:[0,0,1]},{v:[[x,-y,-z],[-x,-y,-z],[-x,y,-z],[x,y,-z]],n:[0,0,-1]},{v:[[-x,y,z],[x,y,z],[x,y,-z],[-x,y,-z]],n:[0,1,0]},{v:[[-x,-y,-z],[x,-y,-z],[x,-y,z],[-x,-y,z]],n:[0,-1,0]},{v:[[-x,-y,-z],[-x,-y,z],[-x,y,z],[-x,y,-z]],n:[-1,0,0]},{v:[[x,-y,z],[x,-y,-z],[x,y,-z],[x,y,z]],n:[1,0,0]}];for(const f of faces){const [a,b,c,d]=f.v;emitTri(P,N,a,b,c,f.n);emitTri(P,N,a,c,d,f.n);}return geo(key,P,N);}
+function cylinderGeo(r,h,segs=24){const key='cyl:'+r+','+h+','+segs;if(cache.has(key))return cache.get(key);const P=[],N=[],y0=-h/2,y1=h/2;for(let i=0;i<segs;i++){const a=i*Math.PI*2/segs,b=(i+1)*Math.PI*2/segs;const p0=[r*Math.cos(a),y0,r*Math.sin(a)],p1=[r*Math.cos(b),y0,r*Math.sin(b)],p2=[r*Math.cos(b),y1,r*Math.sin(b)],p3=[r*Math.cos(a),y1,r*Math.sin(a)],na=[Math.cos(a),0,Math.sin(a)],nb=[Math.cos(b),0,Math.sin(b)];P.push(...p0,...p1,...p2,...p0,...p2,...p3);N.push(...na,...nb,...nb,...na,...nb,...na);emitTri(P,N,[0,y1,0],p3,p2,[0,1,0]);emitTri(P,N,[0,y0,0],p1,p0,[0,-1,0]);}return geo(key,P,N);}
+function ringGeo(ri,ro,h,segs=32){const key='ring:'+ri+','+ro+','+h+','+segs;if(cache.has(key))return cache.get(key);const P=[],N=[],y0=-h/2,y1=h/2;for(let i=0;i<segs;i++){const a=i*Math.PI*2/segs,b=(i+1)*Math.PI*2/segs;const oa=[ro*Math.cos(a),y0,ro*Math.sin(a)],ob=[ro*Math.cos(b),y0,ro*Math.sin(b)],oc=[ro*Math.cos(b),y1,ro*Math.sin(b)],od=[ro*Math.cos(a),y1,ro*Math.sin(a)];const ia=[ri*Math.cos(a),y0,ri*Math.sin(a)],ib=[ri*Math.cos(b),y0,ri*Math.sin(b)],ic=[ri*Math.cos(b),y1,ri*Math.sin(b)],id=[ri*Math.cos(a),y1,ri*Math.sin(a)];const na=[Math.cos(a),0,Math.sin(a)],nb=[Math.cos(b),0,Math.sin(b)],nia=[-Math.cos(a),0,-Math.sin(a)],nib=[-Math.cos(b),0,-Math.sin(b)];P.push(...oa,...ob,...oc,...oa,...oc,...od);N.push(...na,...nb,...nb,...na,...nb,...na);P.push(...ia,...ic,...ib,...ia,...id,...ic);N.push(...nia,...nib,...nib,...nia,...nia,...nib);emitTri(P,N,od,oc,ic,[0,1,0]);emitTri(P,N,od,ic,id,[0,1,0]);emitTri(P,N,oa,ib,ob,[0,-1,0]);emitTri(P,N,oa,ia,ib,[0,-1,0]);}return geo(key,P,N);}
+function cupGeo(ro,ri,h,bottom,segs=32){const key='cup:'+ro+','+ri+','+h+','+bottom+','+segs;if(cache.has(key))return cache.get(key);const P=[],N=[],yb=0,yt=h,yi=bottom;for(let i=0;i<segs;i++){const a=i*Math.PI*2/segs,b=(i+1)*Math.PI*2/segs;const cA=Math.cos(a),sA=Math.sin(a),cB=Math.cos(b),sB=Math.sin(b);const oa=[ro*cA,yb,ro*sA],ob=[ro*cB,yb,ro*sB],oc=[ro*cB,yt,ro*sB],od=[ro*cA,yt,ro*sA],ia=[ri*cA,yi,ri*sA],ib=[ri*cB,yi,ri*sB],ic=[ri*cB,yt,ri*sB],id=[ri*cA,yt,ri*sA];const na=[cA,0,sA],nb=[cB,0,sB],nia=[-cA,0,-sA],nib=[-cB,0,-sB];P.push(...oa,...ob,...oc,...oa,...oc,...od);N.push(...na,...nb,...nb,...na,...nb,...na);P.push(...ia,...ic,...ib,...ia,...id,...ic);N.push(...nia,...nib,...nib,...nia,...nia,...nib);emitTri(P,N,od,oc,ic,[0,1,0]);emitTri(P,N,od,ic,id,[0,1,0]);emitTri(P,N,[0,yb,0],ob,oa,[0,-1,0]);emitTri(P,N,[0,yi,0],ia,ib,[0,1,0]);}return geo(key,P,N);}
+function ellipseGeo(rx,rz,segs=36){const key='ellipse:'+rx+','+rz+','+segs;if(cache.has(key))return cache.get(key);const P=[],N=[];for(let i=0;i<segs;i++){const a=i*2*Math.PI/segs,b=(i+1)*2*Math.PI/segs;emitTri(P,N,[0,0,0],[rx*Math.cos(a),0,rz*Math.sin(a)],[rx*Math.cos(b),0,rz*Math.sin(b)],[0,1,0]);}return geo(key,P,N);}
+function add(geometry,color,pos=[0,0,0],rot=[0,0,0],opts={}){const o={geometry,color:colorHex(color),pos:pos.slice(),rot:rot.slice(),alpha:opts.alpha??1,metal:opts.metal??.35,group:opts.group??null,pose:opts.pose??null,visible:opts.visible??null,tag:opts.tag??'',part:opts.part??buildingPart,cast:opts.cast??true};objects.push(o);return o;}
+function B(pos,size,color,opts={}){return add(boxGeo(...size),color,pos,opts.rot||[0,0,0],opts)}
+function C(pos,r,h,color,opts={}){return add(cylinderGeo(r,h,opts.segs||24),color,pos,opts.rot||[0,0,0],opts)}
+function R(pos,ri,ro,h,color,opts={}){return add(ringGeo(ri,ro,h,opts.segs||32),color,pos,opts.rot||[0,0,0],opts)}
+function tubeSeg(a,b,r,color,opts={}){const dx=b[0]-a[0],dy=b[1]-a[1],dz=b[2]-a[2],len=Math.hypot(dx,dy,dz);let rot;if(Math.abs(dy)>Math.abs(dx)+Math.abs(dz)){rot=[0,0,0];}else if(Math.abs(dx)>Math.abs(dz)){rot=[0,0,(dx<0?-1:1)*Math.PI/2];}else{rot=[Math.PI/2,0,0];}return C([(a[0]+b[0])/2,(a[1]+b[1])/2,(a[2]+b[2])/2],r,len,color,{rot,metal:.2,...opts});}
+function hose(points,r,color){for(let i=0;i<points.length-1;i++)tubeSeg(points[i],points[i+1],r,color,{metal:.1});}
+function transformPoint(p,rot){let [x,y,z]=p;const [rx,ry,rz]=rot;let c=Math.cos(rx),s=Math.sin(rx);[y,z]=[y*c-z*s,y*s+z*c];c=Math.cos(ry);s=Math.sin(ry);[x,z]=[x*c+z*s,-x*s+z*c];c=Math.cos(rz);s=Math.sin(rz);[x,y]=[x*c-y*s,x*s+y*c];return [x,y,z];}
+function mat4Mul(a,b){const o=new Float32Array(16);for(let c=0;c<4;c++)for(let r=0;r<4;r++)o[c*4+r]=a[r]*b[c*4]+a[4+r]*b[c*4+1]+a[8+r]*b[c*4+2]+a[12+r]*b[c*4+3];return o;}
+function translation(x,y,z){return new Float32Array([1,0,0,0,0,1,0,0,0,0,1,0,x,y,z,1]);}
+function rotation(rx,ry,rz){const cx=Math.cos(rx),sx=Math.sin(rx),cy=Math.cos(ry),sy=Math.sin(ry),cz=Math.cos(rz),sz=Math.sin(rz);const X=new Float32Array([1,0,0,0,0,cx,sx,0,0,-sx,cx,0,0,0,0,1]);const Y=new Float32Array([cy,0,-sy,0,0,1,0,0,sy,0,cy,0,0,0,0,1]);const Z=new Float32Array([cz,sz,0,0,-sz,cz,0,0,0,0,1,0,0,0,0,1]);return mat4Mul(mat4Mul(Z,Y),X);}
+function modelMatrix(p,r){return mat4Mul(translation(p[0],p[1],p[2]),rotation(r[0],r[1],r[2]));}
+function perspective(fov,aspect,near,far){const f=1/Math.tan(fov/2),nf=1/(near-far);return new Float32Array([f/aspect,0,0,0,0,f,0,0,0,0,(far+near)*nf,-1,0,0,2*far*near*nf,0]);}
+function lookAt(eye,center,up=[0,1,0]){const norm=a=>{const l=Math.hypot(...a)||1;return a.map(v=>v/l)},cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]],sub=(a,b)=>a.map((v,i)=>v-b[i]);const z=norm(sub(eye,center)),x=norm(cross(up,z)),y=cross(z,x);return new Float32Array([x[0],y[0],z[0],0,x[1],y[1],z[1],0,x[2],y[2],z[2],0,-x.reduce((s,v,i)=>s+v*eye[i],0),-y.reduce((s,v,i)=>s+v*eye[i],0),-z.reduce((s,v,i)=>s+v*eye[i],0),1]);}
+function matVec(m,v){return [m[0]*v[0]+m[4]*v[1]+m[8]*v[2]+m[12]*v[3],m[1]*v[0]+m[5]*v[1]+m[9]*v[2]+m[13]*v[3],m[2]*v[0]+m[6]*v[1]+m[10]*v[2]+m[14]*v[3],m[3]*v[0]+m[7]*v[1]+m[11]*v[2]+m[15]*v[3]];}
+// Scene geometry: dimensions are visual proportions, not a manufacturing drawing.
+const M={navy:'#203f55',navy2:'#163145',steel:'#aebfca',steelLight:'#d9e3e8',steelDark:'#627a8a',frame:'#304e63',orange:'#e9a05d',blue:'#48a7d4',cyan:'#45c8c4',black:'#132634',plastic:'#203a4c',plasticLight:'#35556b',red:'#d86761',green:'#6bd4a4',gold:'#d9b36f',floor:'#0b1b27'};
+// floor + subtle grid
+add(boxGeo(12,.04,8),'#0c1b27',[0,.015,0],[0,0,0],{metal:.1});
+for(let x=-6;x<=6.01;x+=.5)B([x,.04,0],[.008,.006,8],x%1===0?'#1b3343':'#142b3a',{metal:.05});
+for(let z=-4;z<=4.01;z+=.5)B([0,.041,z],[12,.006,.008],z%1===0?'#1b3343':'#142b3a',{metal:.05});
+// subtle equipment footprint
+add(ellipseGeo(3.9,1.23),'#030910',[0,.047,0],[0,0,0],{alpha:.32,metal:0});
+// base and feet
+B([0,.25,0],[7.45,.23,1.95],'#243e51',{metal:.65});B([0,.385,0],[7.15,.075,1.68],'#8298a6',{metal:.75});
+for(const x of [-3.45,3.45])for(const z of [-.75,.75]){B([x,.15,z],[.44,.12,.42],'#1a2e3d',{metal:.3});B([x,.085,z],[.5,.05,.48],'#536d7f',{metal:.7});C([x,.05,z],.07,.04,'#253c4d');}
+// frame uprights + channel detail
+for(const x of [-3.45,3.45])for(const z of [-.78,.78]){B([x,1.86,z],[.14,3.12,.14],'#607f92',{metal:.72});B([x-.004,1.86,z+.074],[.026,2.94,.015],'#bdd0da',{metal:.8});for(let y=.55;y<3.35;y+=.24)B([x, y,z+.083],[.11,.018,.018],'#27465a',{metal:.2});}
+for(const z of [-.78,.78])B([0,3.45,z],[7.1,.17,.17],'#6e899a',{metal:.74});
+for(const x of [-3.45,3.45])B([x,3.45,0],[.17,.17,1.55],'#6e899a',{metal:.74});
+B([0,3.34,0],[6.55,.12,.09],'#233f53',{metal:.6});
+// work platform, track and guide rails
+buildingPart='channel';
+B([0,1.02,0],[6.35,.16,1.52],'#344f63',{metal:.7});B([0,1.12,0],[6.15,.06,1.35],'#91a7b4',{metal:.78});
+B([0,1.285,0],[6.6,.11,.86],'#8b9da8',{metal:.86});
+for(const z of [-.35,.35]){B([0,1.415,z],[6.55,.15,.055],'#8499a6',{metal:.84});B([0,1.492,z],[6.45,.018,.035],'#c5d2d9',{metal:.86});}
+for(const x of [-2.95,-1.1,.8,2.65]){B([x,1.205,0],[.045,.04,.75],'#283f50',{metal:.5});}
+// backside mounting plate and valve rail
+buildingPart='valves';
+B([-.05,3.03,-.73],[3.45,.45,.16],'#20394c',{metal:.7});B([-.05,3.03,-.63],[3.3,.32,.06],'#506e82',{metal:.65});
+// air preparation unit at back right
+B([2.86,2.75,-.65],[.6,.32,.34],'#4a6577',{metal:.58});C([2.74,2.45,-.65],.12,.32,'#d7e2e8',{metal:.8});C([2.74,2.45,-.65],.084,.325,'#8eb0c1',{metal:.65});C([2.74,2.45,-.65],.026,.34,'#21394b',{metal:.2});C([2.92,2.83,-.65],.11,.1,'#192f40');R([2.92,2.885,-.65],.075,.092,.018,'#d1dce2');B([3.06,2.97,-.65],[.05,.12,.06],'#eab56e');
+// solenoid valve manifold five positions
+B([-.05,3.03,-.52],[3.14,.11,.18],'#a4b5c0',{metal:.8});
+for(let i=0;i<5;i++){const x=-1.32+i*.635;B([x,3.18,-.52],[.46,.22,.25],i===4?'#536f80':'#375b72',{metal:.55});B([x,3.31,-.52],[.25,.1,.22],'#172d3d',{metal:.45});B([x,3.36,-.52],[.19,.08,.18],i===4?'#48a7a8':'#d99a5d',{metal:.4});C([x-.12,3.18,-.37],.035,.04,'#b2c4cf');C([x+.12,3.18,-.37],.035,.04,'#b2c4cf');C([x,3.39,-.52],.023,.02,'#67d4a6');}
+// pneumatic lines routed along back/top, distinct colors and actual 3D tubes (multi-segment cylinders)
+hose([[1.48,3.06,-.54],[1.85,3.06,-.52],[1.85,2.8,-.52],[2.55,2.8,-.52]],.027,'#4ba8da');
+hose([[-.9,3.08,-.52],[-.82,2.78,-.52],[-.82,2.65,-.25],[-.64,2.65,-.25]],.022,'#4ba8da');
+hose([[-.25,3.08,-.52],[-.12,2.92,-.52],[-.12,2.4,-.52],[-2.45,2.4,-.52]],.022,'#efaa61');
+hose([[.15,3.08,-.52],[.38,2.9,-.52],[.38,2.65,-.2],[.49,2.65,-.2]],.021,'#4ba8da');
+hose([[.98,3.08,-.52],[1.08,2.92,-.52],[1.08,2.75,.15],[-.64,2.75,.15]],.018,'#d56d66');
+// Main process line — one C1 pusher advances a continuous row of touching caps.
+// Station indices run from the press (0) toward the feed tube (3); one pitch is one cap diameter.
+const stations=[.64,0,-.64];
+const capPitch=.63; // matches the modeled cap outside diameter (Ø0.63 scene units), so adjacent caps touch
+const pressX=stations[2];
+const gx=stations[1];
+const slotX=pressX+3*capPitch;
+const trackY=1.34;
+const mx=-2.35,mz=-.02;
+
+// Rondella magazine: a guided stack with a visible bottom disc and a clear transfer path.
+buildingPart='magazine';
+R([mx,2.62,mz],.285,.34,1.14,'#a5bac6',{alpha:.38,metal:.7});
+R([mx,3.2,mz],.285,.355,.07,'#a9bac6',{metal:.8});
+R([mx,2.05,mz],.285,.355,.07,'#718e9f',{metal:.8});
+for(let i=0;i<4;i++){const a=i*Math.PI/2+Math.PI/4;C([mx+.32*Math.cos(a),2.62,mz+.32*Math.sin(a)],.025,1.05,'#91adbd',{metal:.72});}
+for(let i=0;i<50;i++){
+ const o=C([mx,2.15+i*.018,mz],.285,.016,'#d5e0e5',{metal:.88,pose:s=>{const pulling=s.step===2&&!s.settled;const t=pulling?ease(Math.max(0,Math.min(1,(s.progress-.12)/.78))):0;const removed=s.discsRemoved+t;return {p:[mx,2.15+(i-removed)*.018,mz],r:[0,0,0]};}});
+ o.tag='stackDisc';o.stackIndex=i;o.visible=s=>{const removed=s.discsRemoved+((s.step===2&&!s.settled)?1:0);return i>=removed;};
+}
+
+// Sliding tongue C2. A single round pocket receives exactly one rondella from the stack.
+buildingPart='slider';
+C([-2.85,2.02,-.25],.12,.62,'#344f63',{rot:[0,0,Math.PI/2],metal:.65});
+C([-2.85,2.02,-.25],.08,.61,'#9fb1bc',{rot:[0,0,Math.PI/2],metal:.78});
+const slideHome=mx,slideEnd=pressX,slideMid=(slideHome+slideEnd)/2,slideLen=Math.abs(slideEnd-slideHome)+.28;
+function getSliderX(s){if(s.step===2){if(s.settled)return slideEnd;const travel=ease(Math.max(0,Math.min(1,(s.progress-.12)/.82)));return slideHome+(slideEnd-slideHome)*travel;}if(s.step===3)return slideEnd;if(s.step===4)return s.settled?slideHome:slideEnd+(slideHome-slideEnd)*ease(s.progress);return slideHome;}
+add(cylinderGeo(.045,.1,24),'#d7e2e7',[-2.52,2.02,-.25],[0,0,Math.PI/2],{metal:.9,pose:s=>{const end=Math.max(-2.47,getSliderX(s)-.22),start=-2.54,len=Math.max(.06,Math.round((end-start)*20)/20);return {p:[(start+end)/2,2.02,-.25],r:[0,0,Math.PI/2]};},geomFn:s=>{const end=Math.max(-2.47,getSliderX(s)-.22),start=-2.54,len=Math.max(.06,Math.round((end-start)*20)/20);return cylinderGeo(.045,len,24);}});
+B([slideHome,1.99,.02],[.88,.07,.72],'#9baeb9',{metal:.8,pose:s=>({p:[getSliderX(s),1.99,.02],r:[0,0,0]})});
+B([slideHome,2.035,.02],[.8,.022,.64],'#c5d1d8',{metal:.8,pose:s=>({p:[getSliderX(s),2.035,.02],r:[0,0,0]})});
+R([slideHome,2.055,.02],.288,.315,.025,'#506b7d',{metal:.65,pose:s=>({p:[getSliderX(s),2.055,.02],r:[0,0,0]})});
+R([slideHome,2.07,.02],.288,.315,.012,'#e0e8ed',{metal:.85,pose:s=>({p:[getSliderX(s),2.07,.02],r:[0,0,0]})});
+B([slideHome-.05,1.9,.43],[.28,.16,.12],'#596f7d',{metal:.72,pose:s=>({p:[getSliderX(s)-.05,1.9,.43],r:[0,0,0]})});
+B([slideHome-.05,1.9,-.39],[.28,.16,.12],'#596f7d',{metal:.72,pose:s=>({p:[getSliderX(s)-.05,1.9,-.39],r:[0,0,0]})});
+// The small black port and silver rim identify the Ø6 mm vent port on the tongue.
+C([slideHome+.27,2.052,.24],.04,.018,'#0b1b27',{metal:.08,pose:s=>({p:[getSliderX(s)+.27,2.052,.24],r:[0,0,0]})});
+R([slideHome+.27,2.055,.24],.04,.052,.012,'#cbd7de',{metal:.85,pose:s=>({p:[getSliderX(s)+.27,2.055,.24],r:[0,0,0]})});
+for(const z of [-.38,.38])C([slideMid,1.89,z],.025,slideLen,'#9eafb9',{rot:[0,0,Math.PI/2],metal:.82});
+// Clear, separate disc transfer object: magazine → tongue pocket → vacuum head → cap.
+buildingPart='disc';
+const movingRondella=add(cylinderGeo(.285,.016,40),'#dce6eb',[0,0,0],[0,0,0],{metal:.92,pose:s=>{
+ let x=mx,y=2.08,z=mz,show=false;
+ if(detailMode&&focusedComponent==='disc'){x=mx;y=2.08;show=true;}
+ else if(s.step===2&&!s.settled){x=getSliderX(s);y=2.15-.07*ease(Math.min(1,s.progress/.12));show=true;}
+ else if(s.discLocation==='slide'&&s.step===2){x=getSliderX(s);y=2.08;show=true;}
+ else if(s.discLocation==='slide'&&s.step===3&&!s.settled){if(s.progress<.55){x=slideEnd;y=2.08;}else{x=pressX;y=2.145+getHeadOffset(s)-.005;}show=true;}
+ else if(s.discLocation==='head'&&s.step===3){x=pressX;y=2.14;show=true;}
+ else if(s.discLocation==='head'&&s.step===4){x=pressX;y=2.14;show=true;}
+ else if((s.discLocation==='head'||s.discLocation==='slide')&&s.step===5&&!s.settled){if(s.progress<.56){x=pressX;y=2.145+getHeadOffset(s);}else{const t=ease(Math.min(1,(s.progress-.56)/.18));x=pressX;y=lerp(1.625,1.579,t);}show=true;}
+ return {p:[x,y,z],r:[0,0,0],visible:show};
+}});
+
+// C3 press/vacuum head directly above the press-station cap.
+buildingPart='head';
+B([pressX,3.12,.03],[.72,.16,.72],'#425f73',{metal:.7});
+C([pressX,2.84,.03],.22,.52,'#c4d1d9',{metal:.8});
+C([pressX,2.84,.03],.185,.53,'#718a9a',{metal:.75});
+R([pressX,3.1,.03],.18,.225,.055,'#e0e8ed',{metal:.8});
+C([pressX,2.68,.03],.075,.78,'#dae4e8',{metal:.92,pose:s=>({p:[pressX,2.68+getHeadOffset(s),.03],r:[0,0,0]})});
+C([pressX,2.31,.03],.12,.12,'#526c7d',{metal:.85,pose:s=>({p:[pressX,2.31+getHeadOffset(s),.03],r:[0,0,0]})});
+R([pressX,2.25,.03],.20,.285,.07,'#718998',{metal:.8,pose:s=>({p:[pressX,2.25+getHeadOffset(s),.03],r:[0,0,0]})});
+C([pressX,2.20,.03],.283,.055,'#d3dde2',{metal:.9,pose:s=>({p:[pressX,2.20+getHeadOffset(s),.03],r:[0,0,0]})});
+R([pressX,2.17,.03],.205,.285,.035,'#283f51',{metal:.6,pose:s=>({p:[pressX,2.17+getHeadOffset(s),.03],r:[0,0,0]})});
+C([pressX,2.38,.19],.045,.12,'#45c8c4',{metal:.45,pose:s=>({p:[pressX,2.38+getHeadOffset(s),.19],r:[0,0,0]})});
+hose([[pressX,3.18,-.5],[pressX+.22,3.18,-.5],[pressX+.3,2.8,-.5],[pressX+.12,2.5,-.2],[pressX,2.4,.03]],.021,'#43c7c1',{part:'head'});
+function getHeadOffset(s){if(s.step===3&&!s.settled){const p=s.progress;if(p<.38)return -.06*ease(p/.38);if(p<.58)return -.06;return -.06*(1-ease((p-.58)/.42));}if(s.step===5&&!s.settled){const p=s.progress;if(p<.47)return -.52*ease(p/.47);if(p<.58)return -.52;return -.52*(1-ease((p-.58)/.42));}return 0;}
+
+// Glue dispenser and its short-stroke PTFE metering tongue (C-Glue).
+buildingPart='glue';
+B([gx,2.8,.03],[.72,.15,.6],'#506c7f',{metal:.62});
+C([gx,2.58,.03],.22,.38,'#d9e7ec',{alpha:.6,metal:.3});
+C([gx,2.58,.03],.18,.35,'#e0b77f',{alpha:.48,metal:.25});
+R([gx,2.38,.03],.15,.21,.045,'#718d9d',{metal:.8});
+C([gx,2.22,.03],.11,.28,'#344f61',{metal:.7});
+C([gx,2.02,.03],.055,.16,'#d6e0e5',{metal:.85});
+R([gx,1.92,.03],.06,.1,.05,'#f0b15f',{metal:.4});
+C([gx+.49,2.08,.03],.095,.54,'#344e61',{rot:[0,0,Math.PI/2],metal:.7});
+C([gx+.49,2.08,.03],.064,.55,'#9fb0bb',{rot:[0,0,Math.PI/2],metal:.82});
+C([gx+.2,2.08,.03],.034,.5,'#e3e9ec',{rot:[0,0,Math.PI/2],metal:.9,pose:s=>({p:[gx+.2+getGlueOffset(s),2.08,.03],r:[0,0,Math.PI/2]})});
+B([gx+.13,2.08,.03],[.12,.19,.18],'#e9a05d',{metal:.3,pose:s=>({p:[gx+.13+getGlueOffset(s),2.08,.03],r:[0,0,0]})});
+function getGlueOffset(s){if(s.step===1&&!s.settled){const p=s.progress;return p<.45?.14*ease(p/.45):.14*(1-ease((p-.45)/.55));}return 0;}
+C([gx,1.77,.03],.055,.065,'#f8a344',{metal:.08,pose:s=>{let y=1.77,show=false;if(s.step===1&&!s.settled&&s.progress>.30&&s.progress<.87){show=true;y=1.77-.19*ease((s.progress-.30)/.57);}return {p:[gx,y,.03],r:[0,0,0],visible:show};},visible:s=>s.step===1&&!s.settled&&s.progress>.3&&s.progress<.87});
+
+// One horizontal pusher piston (C1). Its nose directly contacts the last cap in the row.
+// There is no conveyor belt and no secondary indexing comb; the touching caps share the same translation.
+buildingPart='feed';
+const pushFaceHome=slotX+capPitch/2+.0275,pushRodRoot=2.02,pushBodyX=2.34;
+C([pushBodyX,1.48,0],.14,.58,'#3a596d',{rot:[0,0,Math.PI/2],metal:.7});
+C([pushBodyX,1.48,0],.10,.57,'#9db0bc',{rot:[0,0,Math.PI/2],metal:.8});
+R([pushBodyX+.29,1.48,0],.105,.14,.05,'#dce5e9',{rot:[0,0,Math.PI/2],metal:.86});
+function getCapTrainShift(s){if(s.step===0&&!s.settled){if(s.progress<.58)return -capPitch*ease(s.progress/.58);return -capPitch;}return 0;}
+function getCapPusherShift(s){if(s.step===0&&!s.settled){const p=s.progress;if(p<.58)return -capPitch*ease(p/.58);if(p<.64)return -capPitch;return -capPitch*(1-ease((p-.64)/.14));}return 0;}
+add(cylinderGeo(.055,.08,24),'#dce5e9',[0,1.48,0],[0,0,Math.PI/2],{metal:.9,pose:s=>{const end=pushFaceHome+getCapPusherShift(s),len=Math.max(.06,pushRodRoot-end);return {p:[(pushRodRoot+end)/2,1.48,0],r:[0,0,Math.PI/2]};},geomFn:s=>{const end=pushFaceHome+getCapPusherShift(s),len=Math.max(.06,pushRodRoot-end);return cylinderGeo(.055,len,24);}});
+B([pushFaceHome,1.47,0],[.055,.26,.60],'#e0a064',{metal:.55,pose:s=>({p:[pushFaceHome+getCapPusherShift(s),1.47,0],r:[0,0,0]})});
+hose([[2.46,1.72,-.08],[2.48,2.18,-.25],[2.34,2.48,-.48],[2.05,2.72,-.52],[1.55,2.72,-.52]],.02,'#4aa8d9',{part:'feed'});
+
+// Cap train state uses a single station pitch from the press toward the feed end.
+// Negative indices are already processed caps travelling to the output tray; index 3 is the feed slot.
+const capGroups=[];
+let nextCapId=1;
+for(let station=-4;station<=3;station++){
+ capGroups.push({id:nextCapId++,station,initialStation:station,hasGlue:station<=1,hasLiner:station<=0});
+}
+capGroups.push({id:nextCapId++,station:-99,initialStation:-99,hasGlue:false,hasLiner:false});
+function capX(g,s){
+ if(g.station===-99){return slotX;}
+ let x=pressX+g.station*capPitch;
+ if(s.step===0&&!s.settled)x+=getCapTrainShift(s);
+ return x;
+}
+function capY(g,s){
+ if(g.station===-99){if(s.step===0&&!s.settled&&s.progress>.78){const p=ease(Math.min(1,(s.progress-.78)/.17));return 2.54-1.20*p;}return 2.54;}
+ return trackY;
+}
+function capVisible(g,s){
+ if(g.station===-99)return s.step===0&&!s.settled&&s.progress>.78;
+ return g.station>=-4&&g.station<=3;
+}
+function capPart(g,localPos,geometry,color,rot=[0,0,0],opts={}){return add(geometry,color,localPos,rot,{...opts,group:g.id,pose:s=>({p:[capX(g,s)+localPos[0],capY(g,s)+localPos[1],localPos[2]],r:rot,visible:capVisible(g,s)})});}
+function makeCap(g){
+ capPart(g,[0,0,0],cupGeo(.31,.287,.27,.035,36),'#203b4d',[0,0,0],{metal:.53});
+ capPart(g,[0,.265,0],ringGeo(.282,.315,.022,36),'#5f7c8e',[0,0,0],{metal:.74});
+ capPart(g,[0,.155,0],ringGeo(.303,.32,.19,32),'#2a485d',[0,0,0],{metal:.35,alpha:.16});
+ for(let i=0;i<20;i++){const a=i*2*Math.PI/20;capPart(g,[.302*Math.cos(a),.145,.302*Math.sin(a)],boxGeo(.022,.18,.026),'#314e62',[0,-a,0],{metal:.45});}
+ capPart(g,[0,.045,0],cylinderGeo(.20,.006,28),'#e7a14e',[0,0,0],{metal:.15,visible:s=>g.hasGlue&&!g.hasLiner});
+ capPart(g,[0,.239,0],cylinderGeo(.283,.012,36),'#dce6eb',[0,0,0],{metal:.9,visible:s=>g.hasLiner});
+ capPart(g,[0,.247,0],ringGeo(.27,.298,.012,36),'#8a9faa',[0,0,0],{metal:.85,visible:s=>g.hasLiner});
+ return g;
+}
+buildingPart='caps';
+capGroups.forEach(makeCap);
+
+// A local cutaway of the aluminum U-channel is rendered only when the user selects that component.
+// This is a detail-view duplicate of the channel section for clarity, not an added machine mechanism.
+buildingPart='channel-detail';
+const channelDetailVisible=s=>detailMode&&focusedComponent==='channel';
+B([pressX,1.285,0],[1.12,.11,.86],'#aab8c0',{metal:.9,visible:channelDetailVisible});
+for(const z of [-.35,.35]){
+ B([pressX,1.415,z],[1.12,.15,.055],'#91a3ad',{metal:.88,visible:channelDetailVisible});
+ B([pressX,1.492,z],[1.08,.018,.035],'#d0d9de',{metal:.9,visible:channelDetailVisible});
+}
+
+// Cap magazine above the open feed slot; a new cap drops only after the train advances and the slot clears.
+buildingPart='feed';
+const capFeedX=slotX,capFeedZ=0;
+R([capFeedX,2.91,capFeedZ],.35,.43,1.1,'#9bb3c2',{alpha:.20,metal:.6});
+R([capFeedX,3.43,capFeedZ],.35,.44,.055,'#a9bac5',{metal:.82});
+R([capFeedX,2.37,capFeedZ],.35,.44,.055,'#718b9b',{metal:.8});
+for(const dx of [-.36,.36])for(const dz of [-.36,.36])C([capFeedX+dx,2.9,capFeedZ+dz],.025,1.03,'#92aab8',{metal:.8});
+function getFeedDropProgress(s){return s.step===0&&!s.settled?Math.max(0,Math.min(1,(s.progress-.78)/.17)):0;}
+for(let i=0;i<3;i++){
+ const feedY=s=>2.54+i*.26-(i>0?.26*getFeedDropProgress(s):0);
+ const feedVisible=s=>i!==0||!(s.step===0&&!s.settled&&s.progress>.78);
+ add(cupGeo(.30,.245,.245,.032,32),'#29485c',[capFeedX,2.54+i*.26,capFeedZ],[0,0,0],{metal:.56,part:'feed-stack',pose:s=>({p:[capFeedX,feedY(s),capFeedZ],r:[0,0,0],visible:feedVisible(s)})});
+ add(ringGeo(.245,.304,.02,32),'#6c899a',[capFeedX,2.54+i*.26+.238,capFeedZ],[0,0,0],{metal:.78,part:'feed-stack',pose:s=>({p:[capFeedX,feedY(s)+.238,capFeedZ],r:[0,0,0],visible:feedVisible(s)})});
+ for(let k=0;k<12;k++){const a=k*Math.PI*2/12;add(boxGeo(.022,.15,.026),'#385b70',[capFeedX+.30*Math.cos(a),2.54+i*.26+.12,capFeedZ+.30*Math.sin(a)],[0,-a,0],{metal:.42,part:'feed-stack',pose:s=>({p:[capFeedX+.30*Math.cos(a),feedY(s)+.12,capFeedZ+.30*Math.sin(a)],r:[0,-a,0],visible:feedVisible(s)})});}
+}
+
+
+// outgoing cap light/finished tray at left
+buildingPart='feed';
+B([-2.78,1.22,0],[1.25,.05,.95],'#243f51',{metal:.5});B([-2.78,1.29,0],[1.25,.07,.78],'#758d9c',{metal:.72});B([-2.78,1.35,-.47],[1.25,.12,.06],'#506b7d',{metal:.65});B([-2.78,1.35,.47],[1.25,.12,.06],'#506b7d',{metal:.65});
+// small feet/bolts on rails and frame
+for(const x of [-3.0,-2.2,-1.1,0,1.2,2.4,3.0])for(const z of [-.6,.6])C([x,1.42,z],.025,.018,'#dce5e9',{metal:.8});
+// object coordinates and details for focus
+const partAnchors={magazine:[mx,2.53,0],head:[pressX,2.40,0],glue:[gx,2.28,0],feed:[slotX,1.42,0],slider:[slideMid,2.02,0],valves:[-.05,3.15,-.48],vacuum:[pressX,2.38,.1],disc:[mx,2.08,mz],cap:[pressX,1.49,0],channel:[pressX,1.41,0]};
+// scene/camera state
+let yaw=.64,pitch=.27,distance=9.3,target=[0,1.8,0],viewPreset='home',lastPointer=null,gesture=null;
+function cameraPos(){return [target[0]+distance*Math.sin(yaw)*Math.cos(pitch),target[1]+distance*Math.sin(pitch),target[2]+distance*Math.cos(yaw)*Math.cos(pitch)];}
+function ease(t){t=Math.max(0,Math.min(1,t));return t*t*(3-2*t);}function lerp(a,b,t){return a+(b-a)*t;}
+// procedural state and logical sequencing
+const steps=[
+ {title:'دفع صف الأغطية بالبستم C1',short:'دفع الأغطية',summary:'يدفع البستم الغطاء الأخير داخل مجرى U، وينتقل الضغط من غطاء إلى الذي أمامه. تتحرك الأغطية المتلامسة كلها معًا بمشوار واحد؛ لا يوجد سير أو مشط فهرسة.',desc:'يمتد بستم C1 ويلامس الغطاء الموجود عند نهاية الصف. تنتقل قوة الدفع من غطاء إلى الغطاء الملاصق له، فتتحرك مجموعة الأغطية كلها في مجرى الألومنيوم بنفس الإزاحة. يفتح مشوار الدفع مكانًا عند مدخل التغذية، ثم يرجع البستم ويهبط غطاء جديد من الماسورة إلى المكان الفارغ.',part:'feed',duration:1.65},
+ {title:'فتح الأدوس وتطبيق جرعة الغراء',short:'جرعة الغراء',summary:'يتحرك لسان الأدوس تحت وحدة الجرعة لحظيًا؛ تظهر الجرعة فوق قاع الغطاء في محطة الغراء ثم يعود اللسان للإغلاق.',desc:'تتحرك آلية لسان PTFE أسفل وحدة الأدوس، وتفتح مسار الجرعة لفترة قصيرة. تنتقل الجرعة إلى داخل الغطاء الموجود في محطة الغراء، ثم يرجع اللسان إلى وضع الإغلاق قبل الحركة التالية.',part:'glue',duration:1.35},
+ {title:'سحب روندلة من الخزنة',short:'سحب الروندلة',summary:'يتحرك اللسان السحاب من أسفل الخزنة إلى موضع رأس الشفط، حاملاً روندلة واحدة في الجيب.',desc:'تتحرك شريحة اللسان السحاب أفقيًا على أدلة الحركة. عند بداية المشوار تكون الفجوة الدائرية أسفل ماسورة الروندلات، ثم تنتقل الروندلة الموجودة في الجيب إلى محور رأس الشفط والكبس.',part:'magazine',duration:1.45},
+ {title:'التقاط الروندلة بالفاكيوم',short:'التقاط بالفاكيوم',summary:'ينزل رأس الشفط إلى الروندلة، يلتقطها من الجيب، ثم يرتفع بالروندلة إلى وضع الأمان.',desc:'ينزل الرأس المعدني فوق الروندلة الموجودة في جيب اللسان. بعد ملامسة الروندلة يعمل الشفط من فتحة الرأس، ثم يرتفع الرأس حاملًا الروندلة بينما يظل الغطاء في محطة الكبس.',part:'head',duration:1.45},
+ {title:'رجوع اللسان السحاب',short:'رجوع اللسان',summary:'يرجع اللسان السحاب إلى أسفل الخزنة ليخلي المسار أسفل الرأس ويستقبل الروندلة التالية.',desc:'بعد التقاط الروندلة ورفعها، يرجع اللسان إلى موضع الخزنة. يصبح محور الرأس خاليًا من شريحة التغذية، فتكون المسافة الرأسية مفتوحة لنزول الرأس إلى الغطاء.',part:'slider',duration:1.3},
+ {title:'كبس الروندلة داخل الغطاء',short:'الكبس والتثبيت',summary:'ينزل رأس الكبس بالروندلة إلى داخل الغطاء، يحرر الشفط، ثم يرجع إلى موضع الانتظار.',desc:'ينزل الرأس حاملًا الروندلة بمحاذاة محور الغطاء الموجود في محطة الكبس. تدخل الروندلة إلى داخل الغطاء فوق سطحه الداخلي، ثم تتحرر من الرأس ويعود البستم إلى وضع الانتظار العلوي.',part:'head',duration:1.7}
+];
+const state={step:0,progress:0,settled:false,running:false,loop:false,discLocation:'stack',discsRemoved:0,speed:1};let elapsed=0,hold=0,lastTime=0;
+function refreshStepUI(){const st=steps[state.step];document.getElementById('panelTitle').textContent=st.title;document.getElementById('panelSummary').textContent=st.summary;document.getElementById('sceneSubtitle').textContent=st.summary;document.getElementById('stepCounter').textContent=String(state.step+1).padStart(2,'0')+' / 06';document.getElementById('activeStageNo').textContent=String(state.step+1).padStart(2,'0');document.getElementById('activeStageTitle').textContent=st.title;document.getElementById('activeStageDescription').textContent=st.desc;document.getElementById('phaseState').textContent=state.settled?'اكتملت الحركة':'حركة جارية';document.querySelectorAll('.step-item').forEach((b,i)=>b.classList.toggle('active',i===state.step));document.getElementById('progressFill').style.width=(state.progress*100)+'%';}
+const stepList=document.getElementById('stepList');steps.forEach((s,i)=>{const b=document.createElement('button');b.className='step-item'+(i===0?' active':'');b.innerHTML=`<span class="step-num">0${i+1}</span><span class="step-label"><strong>${s.short}</strong><small>${s.desc.slice(0,70)}…</small></span><i class="step-state"></i>`;b.addEventListener('click',()=>jumpToStep(i));stepList.appendChild(b);});
+function stopRun(){state.running=false;state.loop=false;document.getElementById('runBtn').classList.remove('running');document.getElementById('runBtn').innerHTML='<svg viewBox="0 0 24 24"><path d="m8 5 11 7-11 7z"/></svg> تشغيل الدورة';document.getElementById('runState').textContent='الحالة: متوقف';}
+function settleStep(){if(state.step===0){
+  const incoming=capGroups.find(g=>g.station===-99);
+  const outgoing=capGroups.find(g=>g.station===-4);
+  for(const g of capGroups){
+   if(g.station>=-4&&g.station<=3){g.station-=1;if(g.station< -4){g.station=-100;g.hasGlue=false;g.hasLiner=false;}}
+  }
+  if(incoming){incoming.station=3;incoming.hasGlue=false;incoming.hasLiner=false;}
+  // Reuse the cap graphic that has exited the left end as the next hidden feed-cap placeholder.
+  // This keeps one incoming cap per cycle without creating an extra mechanical pusher or belt.
+  if(outgoing){outgoing.station=-99;outgoing.hasGlue=false;outgoing.hasLiner=false;}
+ }
+ if(state.step===1){const g=capGroups.find(c=>c.station===1);if(g){g.hasGlue=true;g.hasLiner=false;}}
+ if(state.step===2){state.discLocation='slide';state.discsRemoved++;}
+ if(state.step===3)state.discLocation='head';
+ if(state.step===5){state.discLocation='installed';const g=capGroups.find(c=>c.station===0);if(g){g.hasLiner=true;g.hasGlue=true;}}
+ state.progress=1;state.settled=true;refreshStepUI();}
+function nextPhase(autoplay=false){state.step=(state.step+1)%steps.length;state.progress=0;state.settled=false;elapsed=0;hold=0;if(autoplay){state.running=true;}refreshStepUI();}
+function resetMachine(){stopRun();state.step=0;state.progress=0;state.settled=false;state.discLocation='stack';state.discsRemoved=0;elapsed=0;capGroups.forEach(g=>{g.station=g.initialStation;g.hasGlue=g.station<=1&&g.station!==-99;g.hasLiner=g.station<=0&&g.station>=-4;});clearDetailView();refreshStepUI();}
+function jumpToStep(i){resetMachine();for(let j=0;j<i;j++){state.step=j;state.progress=1;state.settled=false;settleStep();}state.step=i;state.progress=0;state.settled=false;elapsed=0;refreshStepUI();}
+function runOne(){if(state.running){stopRun();return;}if(state.settled)nextPhase(false);state.loop=false;state.running=true;document.getElementById('runState').textContent='الحالة: ينفّذ حركة واحدة';document.getElementById('runBtn').classList.remove('running');document.getElementById('runBtn').innerHTML='<svg viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg> إيقاف';}
+function toggleLoop(){if(state.running){stopRun();return;}if(state.settled)nextPhase(true);state.running=true;state.loop=true;document.getElementById('runBtn').classList.add('running');document.getElementById('runBtn').innerHTML='<svg viewBox="0 0 24 24"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg> إيقاف الدورة';document.getElementById('runState').textContent='الحالة: تشغيل متكرر';}
+document.getElementById('runBtn').addEventListener('click',toggleLoop);document.getElementById('oneStepBtn').addEventListener('click',runOne);document.getElementById('nextBtn').addEventListener('click',()=>{stopRun();nextPhase(false);runOne();});document.getElementById('resetBtn').addEventListener('click',resetMachine);
+document.getElementById('speedRange').addEventListener('input',e=>{state.speed=+e.target.value;document.getElementById('speedValue').textContent=state.speed.toFixed(1)+'×';});
+// tabs
+const tabs=[...document.querySelectorAll('.tab')];tabs.forEach(b=>b.addEventListener('click',()=>{tabs.forEach(t=>t.classList.toggle('active',t===b));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.toggle('active',p.id==='tab-'+b.dataset.tab));}));
+// reusable details from the supplied engineering concept
+const components=[
+{id:'feed',name:'بستم دفع الأغطية ومجرى U',spec:'MAL/SDA 20×50',detail:'بستم أفقي C1 يدفع الغطاء الأخير مباشرة داخل مجرى U. تنتقل القوة من غطاء إلى الغطاء الملاصق له، فيتحرك صف الأغطية كله بنفس الإزاحة. لا يوجد سير ولا مشط فهرسة إضافي. المقاس المسجل للبستم Ø20 مم ومشوار 50 مم، وبلوك التفلون 50×40 مم.',anchor:partAnchors.feed,icon:'feed'},
+{id:'glue',name:'وحدة الأدوس ولسان الغراء',spec:'MAL/SDA 16×15',detail:'بستم C-Glue بقطر 16 مم ومشوار 15 مم. لسان PTFE سمكه 4 مم وثقب الجرعة قطره 4 مم، مع أورينج حول فتحة الأدوس. زمن الفتح المقترح في الملف 0.2 ثانية.',anchor:partAnchors.glue,icon:'glue'},
+{id:'magazine',name:'خزنة الروندلات',spec:'ID 37.5 مم',detail:'ماسورة رأسية لحفظ رصّة الروندلات. المقاس المسجل للقطر الداخلي 37.5 مم، والروندلة قطرها 37 مم وسمكها 0.5 مم. تهبط روندلة واحدة إلى جيب اللسان السحاب عند فتح مكان التغذية.',anchor:partAnchors.magazine,icon:'magazine'},
+{id:'slider',name:'اللسان السحاب والجيب',spec:'TN 16×75',detail:'يتحرك اللسان أفقيًا من أسفل الماسورة إلى محور رأس الشفط. الجيب قطره 37.3 مم وعمقه المسجل 0.4 مم، وثقب التهوية Ø6 مم. يحمل اللسان روندلة واحدة ثم يرجع قبل نزول رأس الكبس.',anchor:partAnchors.slider,icon:'magazine'},
+{id:'head',name:'رأس الشفط والكبس',spec:'SDA 25×40',detail:'بستم رأسي C3 بقطر 25 مم ومشوار 40 مم. رأس معدني قطره 36.4 مم وفتحة شفط 4 مم. ارتفاع الانتظار فوق اللسان مسجل 1.5–2 مم. وحدة الفاكيوم المقترحة ZH07BS أو CV-10HS.',anchor:partAnchors.head,icon:'head'},
+{id:'valves',name:'مشط البلوف وتجهيز الهواء',spec:'4V210-08 ×4 + 3V210-08 ×1',detail:'أربعة بلوف 5/2 للبساتم الأربعة، وبلف 3/2 لتشغيل وفصل شفط الرأس. وحدة تجهيز هواء بفلتر/منظم ضغط وعداد، مع ثمانية خوانق سرعة SL6-01 وأربعة حساسات مغناطيسية CS1-U حسب القائمة الأصلية.',anchor:partAnchors.valves,icon:'valves'},
+{id:'vacuum',name:'مولد الفاكيوم',spec:'ZH07BS / CV-10HS',detail:'وحدة نيوماتيك مقترحة لتحويل الهواء المضغوط إلى شفط عند رأس الكبس، متصلة بفتحة الرأس المسجلة Ø4 مم.',anchor:partAnchors.vacuum,icon:'vacuum'},
+{id:'channel',name:'مجرى U الألومنيوم',spec:'عرض داخلي 41.5 مم',detail:'مقطع توضيحي مكبّر لمجرى U: أرضية تحمل الغطاء وجانبان يمنعان انحرافه. العرض الداخلي المسجل 41.5 مم لغطاء قطره 40–41 مم. المقطع المكبّر للشرح البصري فقط ولا يضيف آلية جديدة.',anchor:partAnchors.channel,icon:'channel'},
+{id:'cap',name:'غطاء بلاستيك منفرد',spec:'قطر 40–41 مم',detail:'عرض منفصل للغطاء حتى يمكن رؤية موضع الروندلة بالنسبة لحافته الداخلية. المقاس المسجل للغطاء Ø40–41 مم، والقطر الداخلي Ø37–38 مم، مع شفة 1 مم.',anchor:partAnchors.cap,icon:'cap'},
+{id:'disc',name:'الروندلة المعدنية',spec:'Ø37 مم · سماكة 0.5 مم',detail:'قرص الروندلة منفصل بصريًا عن الماكينة لتوضيح السمك والقطر. تتحرك داخل جيب اللسان السحاب ثم يمسكها رأس الفاكيوم وينزل بها إلى الغطاء.',anchor:partAnchors.disc,icon:'disc'}
+];
+const iconSvg={feed:'<svg viewBox="0 0 24 24"><path d="M3 8h12l3 4-3 4H3zM18 12h3M7 5v3M11 5v3M7 16v3M11 16v3"/></svg>',glue:'<svg viewBox="0 0 24 24"><path d="M9 3h6v5l3 3v9H6v-9l3-3zM9 8h6M9 14h6"/><path d="M12 11v5"/></svg>',magazine:'<svg viewBox="0 0 24 24"><path d="M7 3h10v18H7zM5 6h14M5 10h14M5 14h14M5 18h14"/></svg>',head:'<svg viewBox="0 0 24 24"><path d="M8 3h8v5h-2v7h4l-6 6-6-6h4V8H8z"/></svg>',valves:'<svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M7 9l4 3-4 3M17 9l-4 3 4 3"/></svg>',vacuum:'<svg viewBox="0 0 24 24"><path d="M3 14h5l3-8 4 13 3-8h3M5 5h4"/></svg>',channel:'<svg viewBox="0 0 24 24"><path d="M4 4v16h16V4M4 17h16"/></svg>',cap:'<svg viewBox="0 0 24 24"><path d="M5 7h14l-1 12H6zM4 4h16v3H4zM8 10v6M12 10v6M16 10v6"/></svg>',disc:'<svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="8.5" ry="8.5"/><ellipse cx="12" cy="12" rx="6.5" ry="6.5"/><path d="M4 14h16"/></svg>'};
+const cl=document.getElementById('componentList');function renderComponents(q=''){cl.innerHTML='';for(const c of components.filter(c=>(c.name+' '+c.spec+' '+c.detail).toLowerCase().includes(q.toLowerCase()))){const b=document.createElement('button');b.className='component-item'+(activeComponent===c.id?' active':'');b.innerHTML=`<span class="component-icon">${iconSvg[c.icon]}</span><span><strong>${c.name}</strong><small>${c.spec}</small></span>`;b.addEventListener('click',()=>selectComponent(c.id,true));cl.appendChild(b);}}
+let activeComponent='magazine';let detailMode=false,focusedComponent='';
+const focusParts={
+ feed:new Set(['feed','feed-stack','caps','channel']),
+ glue:new Set(['glue','caps','channel']),
+ magazine:new Set(['magazine','slider','disc']),
+ slider:new Set(['slider','magazine','disc','head']),
+ head:new Set(['head','disc','slider','caps']),
+ valves:new Set(['valves','head','glue','slider','feed']),
+ vacuum:new Set(['head','disc','slider','valves']),
+ channel:new Set(['channel-detail','caps']),
+ cap:new Set(['caps']),
+ disc:new Set(['disc'])
+};
+function clearDetailView(){detailMode=false;focusedComponent='';target=[0,1.8,0];yaw=.64;pitch=.27;distance=9.3;document.querySelectorAll('.hotspot').forEach(h=>h.style.opacity='1');}
+function selectComponent(id,focus=false){const c=components.find(c=>c.id===id);if(!c)return;activeComponent=id;renderComponents(document.getElementById('componentSearch').value);document.getElementById('componentDetail').innerHTML=`<h3>${c.name}</h3><p>${c.detail}</p><button type="button" class="control-btn primary" id="exitDetail">عرض الماكينة كاملة</button>`;document.getElementById('exitDetail').addEventListener('click',clearDetailView);if(focus){detailMode=true;focusedComponent=id;target=[...c.anchor];const zoom={feed:3.05,glue:2.35,magazine:2.65,slider:2.55,head:2.35,valves:3.1,vacuum:2.25,channel:1.65,cap:1.15,disc:1.15};const angles={feed:[.25,.18],glue:[.18,.15],magazine:[.42,.18],slider:[.25,.15],head:[.22,.15],valves:[.62,.28],vacuum:[.16,.2],channel:[.18,.12],cap:[.20,.12],disc:[.24,.18]};distance=zoom[id]||2.8;if(angles[id]){yaw=angles[id][0];pitch=angles[id][1];}document.querySelectorAll('.hotspot').forEach(h=>h.style.opacity=h.dataset.part===id?'1':'.35');}}
+document.getElementById('componentSearch').addEventListener('input',e=>renderComponents(e.target.value));renderComponents();selectComponent('magazine');
+const specs=[
+['بستم دفع الغطاء C1','MAL 20×50 أو SDA 20×50','Ø20 مم · مشوار 50 مم · بلوكة تفلون 50×40 مم'],
+['بستم لسان الغراء','MAL 16×15 أو SDA 16×15','Ø16 مم · مشوار 15 مم · PTFE سمك 4 مم · ثقب Ø4 مم · فتح مقترح 0.2 ثانية'],
+['بستم اللسان السحاب C2','TN 16×75','Ø16 مم · مشوار 75 مم · جيب Ø37.3 مم · عمق 0.4 مم · تهوية Ø6 مم'],
+['بستم رأس الكبس C3','SDA 25×40','Ø25 مم · مشوار 40 مم · رأس Ø36.4 مم · فتحة شفط Ø4 مم · انتظار 1.5–2 مم'],
+['مولد الفاكيوم','ZH07BS أو CV-10HS','وحدة نيوماتيك مقترحة · العدد 1'],
+['مشط البلوف 24V DC','4V210-08 ×4 + 3V210-08 ×1','أربع بلوف 5/2 + بلف 3/2 للفاكيوم · العدد 5'],
+['خوانق السرعة والحساسات','SL6-01 ×8 + CS1-U ×4','8 خوانق سرعة · 4 حساسات مغناطيسية'],
+['ماسورة خزنة الروندلات','حسب قطر الروندلة','قطر داخلي 37.5 مم'],
+['الروندلة','حسب المنتج','قطر 37 مم · سمك 0.5 مم'],
+['اللسان السحاب','تصنيع حسب الرسم','جيب Ø37.3 مم · عمق 0.4 مم · خلوص 0.2 مم أسفل الخزنة'],
+['مجرى الغطاء U','تصنيع حسب الغطاء','عرض داخلي 41.5 مم · ارتفاع الحافة 15 مم · الغطاء Ø40–41 مم · داخلي Ø37–38 مم · شفة 1 مم']
+];
+const sl=document.getElementById('specList');specs.forEach(([name,val,desc])=>{const d=document.createElement('div');d.className='spec-row';d.innerHTML=`<div><strong>${name}</strong><small>${desc}</small></div><span class="spec-val">${val}</span>`;sl.appendChild(d);});
+// camera controls: drag orbit, wheel zoom, pinch zoom, presets
+function setPreset(which){viewPreset=which;if(which==='home'){clearDetailView();}if(which==='front'){clearDetailView();yaw=0;pitch=.12;distance=9.4;target=[0,1.8,0];}if(which==='top'){clearDetailView();yaw=.55;pitch=1.15;distance=9.8;target=[0,1.5,0];}if(which==='zoomIn')distance=Math.max(.9,distance*.84);if(which==='zoomOut')distance=Math.min(14,distance*1.18);}
+document.querySelectorAll('[data-view]').forEach(b=>b.addEventListener('click',()=>setPreset(b.dataset.view)));document.getElementById('homeCamera').addEventListener('click',()=>setPreset('home'));
+let activeTouchPointers=0;canvas.addEventListener('pointerdown',e=>{canvas.setPointerCapture(e.pointerId);if(e.pointerType==='touch'){activeTouchPointers++;if(activeTouchPointers>1)lastPointer=null;else lastPointer={x:e.clientX,y:e.clientY};}else lastPointer={x:e.clientX,y:e.clientY};gesture={startDistance:distance};});canvas.addEventListener('pointermove',e=>{if(e.pointerType==='touch'&&activeTouchPointers>1){lastPointer=null;return;}if(!lastPointer)return;const dx=e.clientX-lastPointer.x,dy=e.clientY-lastPointer.y;const factor=e.pointerType==='touch'?.008:.006;yaw-=dx*factor;pitch=Math.max(-.12,Math.min(1.38,pitch+dy*factor));lastPointer={x:e.clientX,y:e.clientY};});const endPointer=e=>{if(e&&e.pointerType==='touch')activeTouchPointers=Math.max(0,activeTouchPointers-1);lastPointer=null;};canvas.addEventListener('pointerup',endPointer);canvas.addEventListener('pointercancel',endPointer);canvas.addEventListener('wheel',e=>{e.preventDefault();distance=Math.max(.9,Math.min(15,distance*Math.exp(e.deltaY*.001)));},{passive:false});let touchDist=0;canvas.addEventListener('touchstart',e=>{if(e.touches.length===2)touchDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);},{passive:true});canvas.addEventListener('touchmove',e=>{if(e.touches.length===2){const d=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);if(touchDist)distance=Math.max(.9,Math.min(15,distance*(touchDist/d)));touchDist=d;}},{passive:true});canvas.addEventListener('touchend',()=>{touchDist=0;},{passive:true});
+document.querySelectorAll('.hotspot').forEach(b=>b.addEventListener('click',()=>{const id=b.dataset.part;document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.tab==='parts'));document.querySelectorAll('.tab-pane').forEach(p=>p.classList.toggle('active',p.id==='tab-parts'));selectComponent(id,true);}));
+document.getElementById('fullscreenBtn').addEventListener('click',async()=>{try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();else await document.exitFullscreen();}catch(e){}});
+document.getElementById('tryLandscape').addEventListener('click',async()=>{try{if(!document.fullscreenElement)await document.documentElement.requestFullscreen();if(screen.orientation&&screen.orientation.lock)await screen.orientation.lock('landscape');document.getElementById('orientationHint').textContent='جرّب قلب الهاتف إذا لم يتغير الاتجاه.';}catch(e){document.getElementById('orientationHint').textContent='المتصفح لا يسمح بقفل الاتجاه من ملف محلي؛ اقلب الهاتف يدويًا.';}});window.addEventListener('orientationchange',()=>{lastPointer=null;touchDist=0;setTimeout(resize,80);});window.addEventListener('resize',()=>{lastPointer=null;touchDist=0;});
+function resize(){const rect=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,1.7),w=Math.max(2,Math.round(rect.width*dpr)),h=Math.max(2,Math.round(rect.height*dpr));if(canvas.width!==w||canvas.height!==h){canvas.width=w;canvas.height=h;gl.viewport(0,0,w,h);}}
+window.addEventListener('resize',resize);if(window.ResizeObserver)new ResizeObserver(resize).observe(canvas);resize();gl.enable(gl.DEPTH_TEST);gl.depthFunc(gl.LEQUAL);gl.clearColor(.026,.06,.087,1);gl.enable(gl.BLEND);gl.blendFunc(gl.SRC_ALPHA,gl.ONE_MINUS_SRC_ALPHA);
+function drawObject(o,s,eye,vp){let p=o.pos,r=o.rot,visible=true,alpha=o.alpha;if(o.pose){const q=o.pose(s);if(q){if(q.p)p=q.p;if(q.r)r=q.r;if(q.visible===false)visible=false;if(q.alpha!==undefined)alpha=q.alpha;}}if(o.visible&&o.visible(s)===false)visible=false;if(o.group!==null){if(o.group<900){const g=capGroups.find(g=>g.id===o.group);if(!g)visible=false;}else if(o.group===900&&!visible)visible=false;}
+ if(!visible||alpha<=0)return;const m=modelMatrix(p,r),geometry=o.geomFn?o.geomFn(s):o.geometry;gl.bindBuffer(gl.ARRAY_BUFFER,geometry.p);gl.enableVertexAttribArray(loc.pos);gl.vertexAttribPointer(loc.pos,3,gl.FLOAT,false,0,0);gl.bindBuffer(gl.ARRAY_BUFFER,geometry.n);gl.enableVertexAttribArray(loc.nor);gl.vertexAttribPointer(loc.nor,3,gl.FLOAT,false,0,0);gl.uniformMatrix4fv(loc.model,false,m);gl.uniform3fv(loc.color,o.color);gl.uniform1f(loc.alpha,alpha);gl.uniform1f(loc.metal,o.metal);gl.drawArrays(gl.TRIANGLES,0,geometry.count);}
+function project(pos,vp){const c=matVec(vp,[pos[0],pos[1],pos[2],1]);if(c[3]<=0)return null;const nx=c[0]/c[3],ny=c[1]/c[3];if(nx<-1.1||nx>1.1||ny<-1.1||ny>1.1)return null;return [(nx*.5+.5)*canvas.clientWidth,(1-(ny*.5+.5))*canvas.clientHeight];}
+function updateHotspots(vp){const anchors={magazine:partAnchors.magazine,head:partAnchors.head,glue:partAnchors.glue,feed:partAnchors.feed,slider:partAnchors.slider};document.querySelectorAll('.hotspot').forEach(b=>{if(detailMode&&b.dataset.part!==focusedComponent){b.style.display='none';return;}const q=project(anchors[b.dataset.part],vp);if(q){b.style.left=q[0]+'px';b.style.top=q[1]+'px';b.style.display='grid';}else b.style.display='none';});}
+function render(time){resize();const rect=canvas.getBoundingClientRect();if(rect.width<2||rect.height<2){requestAnimationFrame(render);return;}const now=time/1000,dt=lastTime?Math.min(.05,now-lastTime):0;lastTime=now;
+ if(state.running){elapsed+=dt*state.speed;state.progress=Math.min(1,elapsed/steps[state.step].duration);if(state.progress>=1&&!state.settled){settleStep();hold=0;if(state.loop){hold=.0;state.running=true;}}else if(state.settled&&state.loop){hold+=dt;if(hold>.36){nextPhase(true);}}else if(state.settled&&!state.loop){stopRun();document.getElementById('runState').textContent='الحالة: اكتملت الحركة';}}
+ document.getElementById('progressFill').style.width=(state.progress*100)+'%';document.getElementById('phaseState').textContent=state.settled?'اكتملت الحركة':(state.running?'حركة جارية':'جاهز');
+ gl.viewport(0,0,canvas.width,canvas.height);gl.clear(gl.COLOR_BUFFER_BIT|gl.DEPTH_BUFFER_BIT);const aspect=canvas.width/canvas.height,eye=cameraPos(),vp=mat4Mul(perspective(Math.PI/4.3,aspect,.1,60),lookAt(eye,target));gl.uniformMatrix4fv(loc.vp,false,vp);gl.uniform3fv(loc.eye,eye);
+ // Render opaque first; transparent components remain depth-tested but blend with the surface.
+ for(let pass=0;pass<2;pass++){for(const o of objects){if(detailMode&&!((focusParts[focusedComponent]||new Set()).has(o.part)))continue;if(detailMode&&o.part==='caps'&&['glue','head','channel','cap'].includes(focusedComponent)){const wantedStation=focusedComponent==='glue'?1:0;const wantedGroup=capGroups.find(g=>g.station===wantedStation)?.id;if(o.group!==wantedGroup)continue;}const alpha=o.alpha;if(pass===0&&alpha<.98)continue;if(pass===1&&alpha>=.98)continue;drawObject(o,state,eye,vp);}}
+ updateHotspots(vp);requestAnimationFrame(render);}
+refreshStepUI();requestAnimationFrame(render);
+})();
+</script>
+</body>
+</html>
